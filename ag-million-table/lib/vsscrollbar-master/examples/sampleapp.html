@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Virtual scroll with filtering and custom scrollbar</title>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+
+        <!--
+        <link href="../dist/debug/vsscrollbar-0.1.6.css" rel="stylesheet" type="text/css">
+        <script src="../dist/debug/vsscrollbar-0.1.6.js"></script>
+        -->
+
+        <link href="../dist/min/vsscrollbar-0.1.6.min.css" rel="stylesheet" type="text/css">
+        <script src="../dist/min/vsscrollbar-0.1.6.min.js"></script>
+
+        <link href="sampleapp.css" rel="stylesheet" type="text/css">
+        <script src="sampleapp.js"></script>
+    </head>
+
+    <body ng-app="sampleapp">
+        <div id="pagemargin" ng-controller="vsScrollbarCtrl1">
+            <h3>Virtual scroll with filtering and custom scrollbar - AngularJS reusable UI component</h3>
+
+            <p>Customized scrollbar demo is <a href="http://kekeh.github.io/vsscrollbar">here</a></p>
+            <hr/>
+
+            <h5>Example 1. Items as a string array</h5>
+
+            <div id="filter">
+                <input type="text" placeholder="Type filter and wait one second..." ng-model="filterText" ng-model-options="{ debounce: 1000 }">
+            </div>
+
+            <vsscrollbar items="allItems" items-in-page="6"
+                         on-scroll-change-fn="onScrollChange(topIndex, maxIndex, topPos, maxPos, filteredPageCount, filteredItemCount, visibleItems)"
+                         on-focus-scrollbox-fn="onFocusScrollbox(focused)">
+                <div id="item" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
+                    <div id="itemtext">{{item}}</div>
+                </div>
+            </vsscrollbar>
+
+            <hr/>
+
+            <div>
+                <div ng-include="'response.html'"></div>
+                <hr/>
+                <div id="clickedtext">{{clickedText}}</div>
+            </div>
+        </div>
+
+
+        <div id="pagemargin" ng-controller="vsScrollbarCtrl2">
+
+            <h5>Example 2. Items as an object array</h5>
+
+            <div id="checkbox">
+                <label><input type="radio" ng-model="showObject" ng-value="1">Show all (id, code and name) properties</label>
+                <label><input type="radio" ng-model="showObject" ng-value="2">Show name property</label>
+            </div>
+
+            <div id="filter">
+                <input type="text" placeholder="Filter value from all properties..." ng-model="filterText" ng-model-options="{ debounce: 1000 }">
+            </div>
+
+            <vsscrollbar items="allItems" items-in-page="5" height="129" ng-model="responseData">
+                <div id="item" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
+                    <div id="itemtext" ng-show="showObject===1">
+                        <div id="col">{{item.id}}</div><div id="col">{{item.code}}</div><div id="col">{{item.name}}</div>
+                    </div>
+                    <div id="itemtext" ng-show="showObject===2">
+                        {{item.name}}
+                    </div>
+                </div>
+            </vsscrollbar>
+
+            <hr/>
+
+            <div>
+                <div ng-include="'response.html'"></div>
+                <hr/>
+                <div id="clickedtext">{{clickedText}}</div>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/ng-template" id="response.html">
+        <h5>Callback data from the directive</h5>
+        <table id="callbacktbl">
+            <tr>
+                <td>Top index</td>
+                <td>{{topIndex}}</td>
+            </tr>
+            <tr>
+                <td>Max top index</td>
+                <td>{{maxIndex}}</td>
+            </tr>
+            <tr>
+                <td>Top scroll pos</td>
+                <td>{{topPos}}</td>
+            </tr>
+            <tr>
+                <td>Max scroll pos</td>
+                <td>{{maxPos}}</td>
+            </tr>
+            <tr>
+                <td>Filtered page count</td>
+                <td>{{filteredPageCount}}</td>
+            </tr>
+            <tr>
+                <td>Filtered item count</td>
+                <td>{{filteredItemCount}}</td>
+            </tr>
+            <tr>
+                <td>Visible items</td>
+                <td>{{visibleItems}}</td>
+            </tr>
+        </table>
+    </script>
+
+</html>

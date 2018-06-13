@@ -1,0 +1,158 @@
+﻿<div>
+    <div class="agm-table-container">
+
+        <div>
+            <div id="filter">
+                <input type="text" placeholder="Filter value from all properties..." ng-model="filterText" ng-model-options="{ debounce: 1000 }">
+            </div>
+        </div>
+        <div mild-table-th id="col" title="id" colwidth="100" enable="false"></div>
+        <div mild-table-th id="col" predicate="firstName" title="이름" colwidth="150" enable="true" />
+        <div mild-table-th id="col" predicate="lastName" title="성" colwidth="150" enable="true" />
+        <div mild-table-th id="col" predicate="nationality" title="국적" colwidth="150" enable="true" />
+        <div mild-table-th id="col" predicate="education" title="교육" colwidth="150" enable="true" />
+        <div mild-table-th id="col" predicate="lastName" title="이름" colwidth="150" enable="true" />
+        <div mild-table-th id="col" predicate="firstName" title="이름" colwidth="150" enable="true" />
+        <vsscrollbar items="allItems" items-in-page="30" height="800" ng-model="responseData">
+            <div id="item" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
+                <div id="itemtext">
+                    <div id="col">{{item.id}}</div>
+                    <div id="col">{{item.firstName}}</div>
+                    <div id="col">{{item.lastName}}</div>
+                    <div id="col">{{item.nationality}}</div>
+                    <div id="col">{{item.education}}</div>
+                    <div id="col">{{item.firstName}}</div>
+                    <div id="col">{{item.firstName}}</div>
+                </div>
+            </div>
+        </vsscrollbar>
+    </div>
+
+    <div ng-show="false">
+
+        <div>
+            <div ng-include="'response.html'"></div>
+            <hr />
+            <div id="clickedtext">{{clickedText}}</div>
+        </div>
+
+        <script type="text/ng-template" id="response.html">
+            <h5>Callback data from the directive</h5>
+            <table id="callbacktbl">
+                <tr>
+                    <td>Top index</td>
+                    <td>{{topIndex}}</td>
+                </tr>
+                <tr>
+                    <td>Max top index</td>
+                    <td>{{maxIndex}}</td>
+                </tr>
+                <tr>
+                    <td>Top scroll pos</td>
+                    <td>{{topPos}}</td>
+                </tr>
+                <tr>
+                    <td>Max scroll pos</td>
+                    <td>{{maxPos}}</td>
+                </tr>
+                <tr>
+                    <td>Filtered page count</td>
+                    <td>{{filteredPageCount}}</td>
+                </tr>
+                <tr>
+                    <td>Filtered item count</td>
+                    <td>{{filteredItemCount}}</td>
+                </tr>
+                <tr>
+                    <td>Visible items</td>
+                    <td>{{visibleItems}}</td>
+                </tr>
+            </table>
+        </script>
+    </div>
+    <style>
+
+        #pagemargin {
+            margin: 0px 15px 0px 15px;
+        }
+
+        #item {
+            border: 1px solid #BCE8F1;
+            height: 25px;
+            margin-bottom: 1px;
+            border-radius: 2px;
+            background-color: #FAFAFA;
+            color: #3A87AD;
+            font-size: 0.8em;
+            padding-left: 2px;
+            cursor: pointer;
+        }
+
+            #item:last-child {
+                margin-bottom: 0px;
+            }
+
+            #item:hover {
+                background-color: lightgreen;
+                color: darkblue;
+            }
+
+        #itemtext {
+            line-height: 25px;
+        }
+
+        #col {
+            display: inline-block;
+            width: 10%;
+        }
+
+        #filter input, h3, h5 {
+            width: 100%;
+            min-width: 150px;
+            border: 1px solid #CCC;
+            border-radius: 2px;
+            padding: 4px;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+        }
+
+        h3, h5 {
+            background-color: #90EE90;
+        }
+
+        #checkbox input {
+            margin-bottom: 10px;
+        }
+
+        #checkbox label, p {
+            font-size: 0.8em;
+        }
+
+        #callbacktbl {
+            color: blue;
+            width: 100%;
+            min-width: 150px;
+            font-size: 0.8em;
+            border-collapse: collapse;
+            border-spacing: 0px;
+            border: 1px solid #AAA;
+        }
+
+            #callbacktbl td {
+                padding: 4px;
+                border: 1px solid #AAA;
+            }
+
+                #callbacktbl td:first-child {
+                    color: black;
+                    width: 130px;
+                }
+
+        #clickedtext {
+            color: green;
+            font-size: 0.8em;
+        }
+    </style>
+</div>

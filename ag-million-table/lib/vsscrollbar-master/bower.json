@@ -1,0 +1,39 @@
+{
+  "author": "kekeh",
+  "description": "Virtual scroll with filtering and custom scrollbar - AngularJS reusable UI component",
+  "name": "vsscrollbar",
+  "homepage": "http://kekeh.github.io/vsscrollbar",
+  "version": "0.1.6",
+  "license": "MIT",
+  "authors": [
+    "kekeh"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kekeh/vsscrollbar.git"
+  },
+  "main": [
+    "dist/min/vsscrollbar-0.1.6.min.css",
+    "dist/min/vsscrollbar-0.1.6.min.js"
+  ],
+  "keywords": [
+    "AngularJS",
+    "vsscrollbar",
+    "virtual scroll",
+    "custom scrollbar"
+  ],
+  "ignore": [
+    "**/.*",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "node_modules",
+    "bower_components",
+    "css",
+    "js",
+    "templates",
+    "test"
+  ],
+  "dependencies": {
+    "angular": "1.4.x"
+  }
+}

@@ -1,0 +1,9 @@
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\bin\VS_DataTable_Sample.dll.config
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\bin\VS_DataTable_Sample.dll
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\bin\VS_DataTable_Sample.pdb
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\obj\Debug\VS_Scroll_Sample.csprojResolveAssemblyReference.cache
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\obj\Debug\VS_Scroll_Sample.csproj.CoreCompileInputs.cache
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\obj\Debug\VS_DataTable_Sample.dll
+C:\Users\RedpeaksDev\Source\Repos\VS_Scroll_Sample\VS_Scroll_Sample\obj\Debug\VS_DataTable_Sample.pdb

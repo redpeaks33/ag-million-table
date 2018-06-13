@@ -1,0 +1,8 @@
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\bin\ag-million-table.dll.config
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\bin\ag-million-table.dll
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\bin\ag-million-table.pdb
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\obj\Debug\ag-million-table.csproj.CoreCompileInputs.cache
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\obj\Debug\ag-million-table.dll
+C:\Users\RedpeaksDev\Source\Repos\ag-million-table\ag-million-table\obj\Debug\ag-million-table.pdb

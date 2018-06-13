@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!--angular-->
+    <script src="/scripts/angular.min.js"></script>
+    <!--jquery-->
+    <script src="/scripts/jquery-1.9.1.min.js"></script>
+    <!--bootstrap-->
+    <script src="/scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.min.css">
+    <!--fontawesome-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--underscore-->
+    <script src="/scripts/underscore.min.js"></script>
+
+    <!----------------------------------------------------------------------------------------------------------------------->
+    <!--table-->
+    <script src="/custom/js/controller.js"></script>
+    <script src="/custom/js/JSONCreationService.js"></script>
+    <script src="/custom/js/WatchCountService.js"></script>
+
+    <link href="/lib/vsscrollbar-master/dist/min/vsscrollbar-0.1.6.min.css" rel="stylesheet" type="text/css">
+    <script src="/lib/vsscrollbar-master/dist/debug/vsscrollbar-0.1.6.js"></script>
+
+    <script src="/scripts/less-1.5.1.min.js" type="text/javascript"></script>
+</head>
+<body ng-controller="MyController" ng-init="initialize()">
+    <h5>Example 2. Items as an object array</h5>
+
+    <div id="checkbox">
+        <label><input type="radio" ng-model="showObject" ng-value="1">Show all (id, code and name) properties</label>
+        <label><input type="radio" ng-model="showObject" ng-value="2">Show name property</label>
+    </div>
+
+    <div id="filter">
+        <input type="text" placeholder="Filter value from all properties..." ng-model="filterText" ng-model-options="{ debounce: 1000 }">
+    </div>
+
+    <vsscrollbar items="allItems" items-in-page="50" height="1000" ng-model="responseData">
+        <div id="item" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
+            <div id="itemtext" ng-show="showObject===1">
+                <div id="col">{{item.id}}</div><div id="col">{{item.code}}</div><div id="col">{{item.name}}</div>
+            </div>
+            <div id="itemtext" ng-show="showObject===2">
+                {{item.name}}
+            </div>
+        </div>
+    </vsscrollbar>
+
+    <hr />
+
+    <div>
+        <div ng-include="'response.html'"></div>
+        <hr />
+        <div id="clickedtext">{{clickedText}}</div>
+    </div>
+</body>
+<script type="text/ng-template" id="response.html">
+    <h5>Callback data from the directive</h5>
+    <table id="callbacktbl">
+        <tr>
+            <td>Top index</td>
+            <td>{{topIndex}}</td>
+        </tr>
+        <tr>
+            <td>Max top index</td>
+            <td>{{maxIndex}}</td>
+        </tr>
+        <tr>
+            <td>Top scroll pos</td>
+            <td>{{topPos}}</td>
+        </tr>
+        <tr>
+            <td>Max scroll pos</td>
+            <td>{{maxPos}}</td>
+        </tr>
+        <tr>
+            <td>Filtered page count</td>
+            <td>{{filteredPageCount}}</td>
+        </tr>
+        <tr>
+            <td>Filtered item count</td>
+            <td>{{filteredItemCount}}</td>
+        </tr>
+        <tr>
+            <td>Visible items</td>
+            <td>{{visibleItems}}</td>
+        </tr>
+    </table>
+</script>
+<style>
+    #pagemargin {
+        margin: 0px 15px 0px 15px;
+    }
+
+    #item {
+        border: 1px solid #BCE8F1;
+        height: 25px;
+        margin-bottom: 1px;
+        border-radius: 2px;
+        background-color: #FAFAFA;
+        color: #3A87AD;
+        font-size: 0.8em;
+        padding-left: 2px;
+        cursor: pointer;
+    }
+
+        #item:last-child {
+            margin-bottom: 0px;
+        }
+
+        #item:hover {
+            background-color: lightgreen;
+            color: darkblue;
+        }
+
+    #itemtext {
+        line-height: 25px;
+    }
+
+    #col {
+        display: inline-block;
+        width: 33.3%;
+    }
+
+    #filter input, h3, h5 {
+        width: 100%;
+        min-width: 150px;
+        border: 1px solid #CCC;
+        border-radius: 2px;
+        padding: 4px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin-bottom: 8px;
+    }
+
+    h3, h5 {
+        background-color: #90EE90;
+    }
+
+    #checkbox input {
+        margin-bottom: 10px;
+    }
+
+    #checkbox label, p {
+        font-size: 0.8em;
+    }
+
+    #callbacktbl {
+        color: blue;
+        width: 100%;
+        min-width: 150px;
+        font-size: 0.8em;
+        border-collapse: collapse;
+        border-spacing: 0px;
+        border: 1px solid #AAA;
+    }
+
+        #callbacktbl td {
+            padding: 4px;
+            border: 1px solid #AAA;
+        }
+
+            #callbacktbl td:first-child {
+                color: black;
+                width: 130px;
+            }
+
+    #clickedtext {
+        color: green;
+        font-size: 0.8em;
+    }
+</style>
+</html>
