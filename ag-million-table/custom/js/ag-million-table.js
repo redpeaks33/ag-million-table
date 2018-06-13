@@ -82,7 +82,7 @@ mdt.directive("agMillionTable", ['JSONCreationService', 'vsscrollbarEvent', func
 
                 // Filtering
                 scope.$watch('filterText', function (newValue, oldValue) {
-                    nif(newValue !== oldValue) {
+                    if(newValue !== oldValue) {
                         // Filter value from all properties (id, code and name) because item is an object
                         vsscrollbarEvent.filter(scope, newValue);
                     }
