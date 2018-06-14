@@ -1,20 +1,17 @@
 ﻿<div ng-if="!enable">{{title}}</div>
 <div class="dropdown" ng-if="enable">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="synchronizeCheckItems();">
+    <span ng-model="sortModel" ng-click="sort();">
         {{title}}
         <span class="caret"></span>
-    </button>
+    </span>
+    <span data-toggle="dropdown" ng-click="synchronizeCheckItems();">
+        <span class="glyphicon glyphicon-filter"></span>
+    </span>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" ng-click="$event.stopPropagation()">
-        <li>
-            <button class="btn btn-xs" ng-click="sort(true)"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button>
-            <button class="btn btn-xs" ng-click="sort(false)"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button>
-        </li>
         <li ng-repeat="item in items">
             <label class="filteritem" ng-class="{filterdiveder:$first}">
                 <input type="checkbox" ng-model="item.selected" ng-change="filterChanged(item)">&nbsp;&nbsp;{{item.value}}
             </label>
         </li>
     </ul>
-    <style>
-    </style>
 </div> 

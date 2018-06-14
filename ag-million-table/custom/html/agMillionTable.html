@@ -1,6 +1,5 @@
 ﻿<div>
     <div class="agm-table-container">
-
         <div>
             <div id="filter">
                 <input type="text" placeholder="Filter value from all properties..." ng-model="filterText" ng-model-options="{ debounce: 1000 }">
@@ -11,8 +10,7 @@
         <div mild-table-th id="col" predicate="lastName" title="성" colwidth="150" enable="true" />
         <div mild-table-th id="col" predicate="nationality" title="국적" colwidth="150" enable="true" />
         <div mild-table-th id="col" predicate="education" title="교육" colwidth="150" enable="true" />
-        <div mild-table-th id="col" predicate="lastName" title="이름" colwidth="150" enable="true" />
-        <div mild-table-th id="col" predicate="firstName" title="이름" colwidth="150" enable="true" />
+
         <vsscrollbar items="allItems" items-in-page="30" height="800" ng-model="responseData">
             <div id="item" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
                 <div id="itemtext">
@@ -23,9 +21,19 @@
                     <div id="col">{{item.education}}</div>
                     <div id="col">{{item.firstName}}</div>
                     <div id="col">{{item.firstName}}</div>
+                    <div id="col">
+                        <select name="mySelect" id="mySelect"
+                                ng-options="item in item.summary track by $index"></select>
+                    </div>
+                    <div id="col">{{item.summary.e}}</div>
+                    <div id="col">{{item.summary.n}}</div>
+                    <div id="col">{{item.summary.f}}</div>
+                    <div id="col">{{item.summary.n}}</div>
+                    <div id="col">{{item.summary.ed}}</div>
                 </div>
             </div>
         </vsscrollbar>
+        <div>{{topIndex}} ~ {{topIndex + itemNumPage}}/ {{filteredItemCount}}/ {{allItems.length}}</div>
     </div>
 
     <div ng-show="false">

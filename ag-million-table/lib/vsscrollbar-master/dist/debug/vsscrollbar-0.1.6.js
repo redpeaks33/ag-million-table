@@ -1,15 +1,15 @@
-/* 
-*  Name: vsscrollbar 
-*  Description: Virtual scroll with filtering and custom scrollbar - AngularJS reusable UI component 
-*  Homepage: http://kekeh.github.io/vsscrollbar 
-*  Version: 0.1.6 
-*  Author: kekeh 
-*  License: MIT 
-*  Date: 2016-01-13 
-*/ 
-angular.module('template-vsscrollbar-0.1.6.html', []).run(['$templateCache', function($templateCache) {
-  $templateCache.put("templates/vsscrollbar.html",
-    "<table class=vsscrollbarcontainer ng-show=\"filteredItems.length > 0\" style=border-collapse:separate;border-spacing:0;padding:0;height:100%><tr><td style=width:100%;padding:0;vertical-align:top><div class=vsscrollbarcontent ng-style=\"{'margin': scrollbarVisible ? '1px 0 1px 1px' : '1px'}\" style=overflow-y:hidden;padding:0;outline:0 ng-transclude></div></td><td style=padding:0;height:100%><div class=vsscrollbar ng-show=scrollbarVisible style=float:right;height:100%;padding:0;margin:1px><div class=vsscrollbox tabindex=0 ng-focus=scrollBoxFocus() ng-blur=scrollBoxBlur() ng-style=\"{'height': boxHeight + 'px'}\" ng-click=$event.stopPropagation() style=position:relative;padding:0;outline:0></div></div></td></tr></table>");
+/*
+*  Name: vsscrollbar
+*  Description: Virtual scroll with filtering and custom scrollbar - AngularJS reusable UI component
+*  Homepage: http://kekeh.github.io/vsscrollbar
+*  Version: 0.1.6
+*  Author: kekeh
+*  License: MIT
+*  Date: 2016-01-13
+*/
+angular.module('template-vsscrollbar-0.1.6.html', []).run(['$templateCache', function ($templateCache) {
+    $templateCache.put("templates/vsscrollbar.html",
+        "<table class=vsscrollbarcontainer ng-show=\"filteredItems.length > 0\" style=border-collapse:separate;border-spacing:0;padding:0;height:100%><tr><td style=width:100%;padding:0;vertical-align:top><div class=vsscrollbarcontent ng-style=\"{'margin': scrollbarVisible ? '1px 0 1px 1px' : '1px'}\" style=overflow-y:hidden;padding:0;outline:0 ng-transclude></div></td><td style=padding:0;height:100%><div class=vsscrollbar ng-show=scrollbarVisible style=float:right;height:100%;padding:0;margin:1px><div class=vsscrollbox tabindex=0 ng-focus=scrollBoxFocus() ng-blur=scrollBoxBlur() ng-style=\"{'height': boxHeight + 'px'}\" ng-click=$event.stopPropagation() style=position:relative;padding:0;outline:0></div></div></td></tr></table>");
 }]);
 
 angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
@@ -33,19 +33,29 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
         };
 
         factory.addItem = function ($scope, index, item) {
-            broadcast($scope, 'addItem', {index: index, item: item});
+            broadcast($scope, 'addItem', { index: index, item: item });
         };
 
         factory.updateItem = function ($scope, index, item) {
-            broadcast($scope, 'updateItem', {index: index, item: item});
+            broadcast($scope, 'updateItem', { index: index, item: item });
         };
 
         factory.deleteItem = function ($scope, index) {
             broadcast($scope, 'deleteItem', index);
         };
 
+        factory.multifilter = function ($scope, filterObject) {
+            broadcast($scope, 'multifilter', filterObject);
+        };
+
+        //#region
+        factory.sort = function ($scope, index) {
+            broadcast($scope, 'sort', 'last');
+        };
+        //#endregion
+
         function broadcast($scope, type, data) {
-            $scope.$broadcast('vsmessage', {type: type, value: data});
+            $scope.$broadcast('vsmessage', { type: type, value: data });
         };
         return factory;
     })
@@ -119,11 +129,11 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
                 scope.scrollbarVisible = true;
 
                 scope.scrollBoxFocus = function () {
-                    scope.onFocusScrollboxFn({focused: true});
+                    scope.onFocusScrollboxFn({ focused: true });
                 };
 
                 scope.scrollBoxBlur = function () {
-                    scope.onFocusScrollboxFn({focused: false});
+                    scope.onFocusScrollboxFn({ focused: false });
                 };
 
                 scrollbox.on('mousedown touchstart', onScrollMoveStart);
@@ -225,6 +235,12 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
                         scope.items.splice(data.value, 1);
                         filterItems(filterStr, index);
                     }
+                    else if (data.type === 'multifilter' && scope.items.length > 0) {
+                        filterMultiItems(data.value, 0);
+                    }
+                    else if (data.type === 'sort' && scope.items.length > 0) {
+                        sortItems(data.value, 0);
+                    }
                 }
 
                 scope.$on('$destroy', function () {
@@ -239,6 +255,20 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
 
                 function filterItems(filter, idx) {
                     scope.filteredItems = (filter === '') ? scope.items : $filter('filter')(scope.items, filter);
+                    scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
+                    initScrollValues();
+                    setIndex(idx, false);
+                }
+
+                function filterMultiItems(filterObject, idx) {
+                    scope.filteredItems = (filter === '') ? scope.items : $filter('filter')(scope.items, 'Pi');
+                    scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
+                    initScrollValues();
+                    setIndex(idx, false);
+                }
+
+                function sortItems(sortType, idx) {
+                    scope.filteredItems = $filter('orderBy')(scope.items, ['lastName', 'firstName']);
                     scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
                     initScrollValues();
                     setIndex(idx, false);

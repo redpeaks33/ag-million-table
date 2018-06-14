@@ -55,6 +55,7 @@ mdt.directive("agMillionTable", ['JSONCreationService', 'vsscrollbarEvent', func
                 scope.filterText = '';
                 scope.showObject = 1;
 
+                scope.itemNumPage = 30;
                 scope.topIndex = 0;
                 scope.maxIndex = 0;
                 scope.topPos = 0;
@@ -82,28 +83,26 @@ mdt.directive("agMillionTable", ['JSONCreationService', 'vsscrollbarEvent', func
 
                 // Filtering
                 scope.$watch('filterText', function (newValue, oldValue) {
-                    if(newValue !== oldValue) {
+                    if (newValue !== oldValue) {
                         // Filter value from all properties (id, code and name) because item is an object
                         vsscrollbarEvent.filter(scope, newValue);
                     }
                 });
 
+                scope.$on('sort', function (mode) {
+                    vsscrollbarEvent.sort(scope, mode);
+                });
+                scope.$on('multifilter', function (filterObject) {
+                    vsscrollbarEvent.multifilter(scope, filterObject);
+                });
+
                 scope.allItems = JSONCreationService.execute();
-
-                //// Generate test items (array of objects)
-                //var chars = "ABCDEFGHIJKLMNOPQURSTUVWXYZ";
-
-                //scope.allItems = [];
-                //for (var i = 0; i < 1000; i++) {
-                //    var rndcode = chars.substr(Math.floor(Math.random() * 27), 1) + chars.substr(Math.floor(Math.random() * 27), 1);
-                //    scope.allItems.push({ id: i, code: rndcode, name: 'Item #' + (i + 1) });
-                //}
             }
         }
     }
 }]);
 
-mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', function (mdtConfig, $rootScope) {
+mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', function (mdtConfig, $rootScope, vsscrollbarEvent) {
     return {
         restrict: 'EA',
         //require: '^div',
@@ -117,14 +116,16 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', function (mdtConfig, $r
         templateUrl: '/custom/html/TableColumnFilter.html',
         compile: function (element, attr) {
             //#region column size
-            initializeColumn(element);
-            function initializeColumn(element) {
-                //element[0].style.width = attr.colwidth + '%';
-                element[0].style.width = attr.colwidth + 'px';
-                // element[0].style.backgroundColor = attr.color;
-            }
+            //initializeColumn(element);
+
+            //function initializeColumn(element) {
+            //    //element[0].style.width = attr.colwidth + '%';
+            //    element[0].style.width = attr.colwidth + 'px';
+            //    // element[0].style.backgroundColor = attr.color;
+            //}
             //#endregion
 
+            //link
             return function (scope, element, attr, tableFilterCtrl) {
                 //in case of using title only without filter
                 if (!scope.enable) return;
@@ -211,7 +212,8 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', function (mdtConfig, $r
                     filterInfo.map = scope.items;
 
                     //Execute
-                    $rootScope.$broadcast('updateMildTable');
+                    scope.$emit('multifilter', filterInfo);
+                    //$rootScope.$broadcast('updateMildTable');
                     //updateParentFilterContainer();
                     //tableFilterCtrl.executeFilter(element, scope.predicate);
                 };
@@ -219,9 +221,13 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', function (mdtConfig, $r
 
                 //#region button event
                 //Sort
-                scope.sort = function (isAsc) {
-                    let sortInfo = _.findWhere(mdtConfig.sort.order, { predicate: scope.predicate });
-                    mdtConfig.sort.order.push({ asc: isAsc, predicate: scope.predicate });
+                let sortType = [{ id: 1, type: 'normal' }, { id: 2, type: 'asc' }, { id: 3, type: 'desc' }];
+                scope.sortModel = sortType[0];
+                scope.sort = function () {
+                    scope.$emit('sort', sortType);
+                    //vsscrollbarEvent.sort(scope, sortType);
+                    //let sortInfo = _.findWhere(mdtConfig.sort.order, { predicate: scope.predicate });
+                    //mdtConfig.sort.order.push({ asc: isAsc, predicate: scope.predicate });
 
                     //if (sortInfo) {
                     //    sortInfo = { asc: isAsc, predicate: scope.predicate };
@@ -231,7 +237,7 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', function (mdtConfig, $r
                     //}
 
                     //Execute
-                    $rootScope.$broadcast('updateMildTable');
+                    //$rootScope.$broadcast('updateMildTable');
                 };
 
                 ////Clear

@@ -19,19 +19,25 @@ angular.module('vsscrollbar', [])
         };
 
         factory.addItem = function ($scope, index, item) {
-            broadcast($scope, 'addItem', {index: index, item: item});
+            broadcast($scope, 'addItem', { index: index, item: item });
         };
 
         factory.updateItem = function ($scope, index, item) {
-            broadcast($scope, 'updateItem', {index: index, item: item});
+            broadcast($scope, 'updateItem', { index: index, item: item });
         };
 
         factory.deleteItem = function ($scope, index) {
             broadcast($scope, 'deleteItem', index);
         };
 
+        //#region
+        factory.sort = function ($scope, index) {
+            broadcast($scope, 'sort', index);
+        };
+        //#endregion
+
         function broadcast($scope, type, data) {
-            $scope.$broadcast('vsmessage', {type: type, value: data});
+            $scope.$broadcast('vsmessage', { type: type, value: data });
         };
         return factory;
     })
@@ -105,11 +111,11 @@ angular.module('vsscrollbar', [])
                 scope.scrollbarVisible = true;
 
                 scope.scrollBoxFocus = function () {
-                    scope.onFocusScrollboxFn({focused: true});
+                    scope.onFocusScrollboxFn({ focused: true });
                 };
 
                 scope.scrollBoxBlur = function () {
-                    scope.onFocusScrollboxFn({focused: false});
+                    scope.onFocusScrollboxFn({ focused: false });
                 };
 
                 scrollbox.on('mousedown touchstart', onScrollMoveStart);
@@ -211,6 +217,9 @@ angular.module('vsscrollbar', [])
                         scope.items.splice(data.value, 1);
                         filterItems(filterStr, index);
                     }
+                    else if (data.type === 'sort' && scope.items.length > 0) {
+                        sortItems(data.value);
+                    }
                 }
 
                 scope.$on('$destroy', function () {
@@ -225,6 +234,13 @@ angular.module('vsscrollbar', [])
 
                 function filterItems(filter, idx) {
                     scope.filteredItems = (filter === '') ? scope.items : $filter('filter')(scope.items, filter);
+                    scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
+                    initScrollValues();
+                    setIndex(idx, false);
+                }
+
+                function sortItems(sortType) {
+                    scope.filteredItems = $filter('orderBy')(scope.items, 'lastName');
                     scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
                     initScrollValues();
                     setIndex(idx, false);

@@ -18,13 +18,22 @@
             var firstName = nameList[Math.floor(Math.random() * 5)].name,
                 lastName = familyName[Math.floor(Math.random() * 5)].name,
                 nationality = nationList[Math.floor(Math.random() * 3)].name,
-                education = educationList[Math.floor(Math.random() * 4)].name;
+                education = educationList[Math.floor(Math.random() * 4)].name,
+                summary = {
+                    e: educationList[Math.floor(Math.random() * 4)].name + 'sum',
+                    n: nameList[Math.floor(Math.random() * 5)].name + 'sum',
+                    f: familyName[Math.floor(Math.random() * 5)].name + 'sum',
+                    n: nationList[Math.floor(Math.random() * 3)].name + 'sum',
+                    ed: educationList[Math.floor(Math.random() * 4)].name + 'sum',
+                };
+
             return {
                 id: index,
                 firstName: firstName,
                 lastName: lastName,
                 nationality: nationality,
                 education: education,
+                summary: summary,
                 visible: true,
                 selected: false
             }
