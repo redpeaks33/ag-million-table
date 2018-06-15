@@ -89,7 +89,7 @@ mdt.directive("agMillionTable", ['JSONCreationService', 'vsscrollbarEvent', func
                     }
                 });
 
-                scope.$on('sort', function (mode) {
+                scope.$on('sort', function (e, mode) {
                     vsscrollbarEvent.sort(scope, mode);
                 });
                 scope.$on('multifilter', function (filterObject) {
@@ -146,7 +146,8 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
                 //#region crate check on/off items for filter
                 function createItems() {
                     //extract predicate and get uniq and sort.
-                    let distinctRows = createDistinctRows(mdtConfig.list.original);
+                    //let distinctRows = createDistinctRows(mdtConfig.list.original);
+                    let distinctRows = _.sortBy(_.uniq(_.flatten(_.pluck(scope.$parent.allItems, scope.predicate))));
                     let map = createItemsMap(distinctRows);
                     mdtConfig.filter.map.push({ predicate: attr.predicate, map: map });
                     return map;
@@ -165,7 +166,7 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
                 //}
 
                 function createDistinctRows(rows) {
-                    return _.sortBy(_.uniq(_.flatten(_.pluck(rows, scope.predicate))));
+                    return
                 }
 
                 function createItemsMap(distinctRows) {
@@ -213,6 +214,7 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
 
                     //Execute
                     scope.$emit('multifilter', filterInfo);
+
                     //$rootScope.$broadcast('updateMildTable');
                     //updateParentFilterContainer();
                     //tableFilterCtrl.executeFilter(element, scope.predicate);
@@ -221,10 +223,15 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
 
                 //#region button event
                 //Sort
-                let sortType = [{ id: 1, type: 'normal' }, { id: 2, type: 'asc' }, { id: 3, type: 'desc' }];
+                let sortType = [{ id: 0, type: 'normal' }, { id: 1, type: 'asc' }, { id: 2, type: 'desc' }];
+                let sortInfos = [];
+
                 scope.sortModel = sortType[0];
+
                 scope.sort = function () {
-                    scope.$emit('sort', sortType);
+                    scope.sortModel = sortType[(scope.sortModel.id + 1 % sortType.length)];
+                    scope.sortModel.predicate = attr.predicate; 
+                    scope.$emit('sort', scope.sortModel);
                     //vsscrollbarEvent.sort(scope, sortType);
                     //let sortInfo = _.findWhere(mdtConfig.sort.order, { predicate: scope.predicate });
                     //mdtConfig.sort.order.push({ asc: isAsc, predicate: scope.predicate });
@@ -271,9 +278,10 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
                 //#region synchronize item check on/off with rows when clicked dropdown
                 scope.synchronizeCheckItems = function () {
                     //createItems();
-
-                    let rows = mdtConfig.list.display;
                     //let rows = tableFilterCtrl.getShowingCollection();
+
+                    /*
+                    let rows = mdtConfig.list.display;
 
                     _.each(_.rest(scope.items), function (item) {
                         let visibleRow = _.filter(rows, function (row) {
@@ -284,6 +292,7 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
                     });
 
                     synchronizeAllSelection();
+                    */
                 }
                 //#endregion
 

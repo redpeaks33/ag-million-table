@@ -49,8 +49,8 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
         };
 
         //#region
-        factory.sort = function ($scope, index) {
-            broadcast($scope, 'sort', 'last');
+        factory.sort = function ($scope, mode) {
+            broadcast($scope, 'sort', mode);
         };
         //#endregion
 
