@@ -2,7 +2,11 @@
 <div class="dropdown" ng-if="enable">
     <span ng-model="sortModel" ng-click="sort();">
         {{title}}
-        <span class="caret"></span>
+        <span ng-switch="sortModel.id">
+            <span ng-switch-when="1" class="glyphicon glyphicon-chevron-down"></span>
+            <span ng-switch-when="2" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-switch-default></span>
+        </span>
     </span>
     <span data-toggle="dropdown" ng-click="synchronizeCheckItems();">
         <span class="glyphicon glyphicon-filter"></span>

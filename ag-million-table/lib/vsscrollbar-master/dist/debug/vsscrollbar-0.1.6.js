@@ -278,14 +278,14 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
                     }
 
                     function filterMultiItems(filterObject, idx) {
-                        scope.filteredItems = (filter === '') ? scope.items : $filter('filter')(scope.items, filterConditionCreationService.createCondition(filterObject));
+                        //scope.filteredItems = (filter === '') ? scope.items : $filter('filter')(scope.items, filterConditionCreationService.createCondition(item, filterObject));
+                        scope.filteredItems = (filter === '') ? scope.items : filterConditionCreationService.createCondition(scope.items, filterObject);
                         scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
                         initScrollValues();
                         setIndex(idx, false);
                     }
 
                     function sortItems(sortObject, idx) {
-                        //convert sortObject => ['lastName', '-firstName'];
                         scope.filteredItems = $filter('orderBy')(scope.items, sortConditionCreationService.createCondition(sortObject));
                         scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
                         initScrollValues();
@@ -371,11 +371,32 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
         }])
     .service('sortConditionCreationService', function () {
         this.createCondition = function (sortObject) {
-            return ['-firstName', '-lastName'];
+            let sortCondition = [];
+            angular.forEach(sortObject.reverse(), function (value, key) {
+                if (value.type == 'asc') {
+                    this.push(value.predicate);
+                }
+                else if (value.type == 'desc') {
+                    this.push('-' + value.predicate);
+                }
+            }, sortCondition);
+            return sortCondition;
         };
     })
     .service('filterConditionCreationService', function () {
-        this.createCondition = function (filterObject) {
-            return 'USA';
+        this.createCondition = function (items, filterObject) {
+            let filtered = [];
+
+            _.each(items, function (item) {
+                let visible = true;
+                _.each(filterObject, function (f) {
+                    visible &= _.findWhere(f.map, { value: item[f.predicate] }).selected
+                });
+                if (visible) {
+                    filtered.push(item);
+                }
+            })
+
+            return filtered;
         };
     });
