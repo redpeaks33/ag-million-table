@@ -3,8 +3,8 @@
     "ag-million-table"
 ]);
 
-main.controller('MyController', ['$scope', 'vsscrollbarEvent', 'JSONCreationService', 'WatchCountService',
-    function ($scope, vsscrollbarEvent, JSONCreationService, WatchCountService) {
+main.controller('MyController', ['$scope', '$timeout', 'vsscrollbarEvent', 'JSONCreationService', 'WatchCountService',
+    function ($scope, $timeout, vsscrollbarEvent, JSONCreationService, WatchCountService) {
         //$scope.initialize = function () {
         //    var startTime = new Date();
 
@@ -19,6 +19,9 @@ main.controller('MyController', ['$scope', 'vsscrollbarEvent', 'JSONCreationServ
         //    //    //alert(endTime - startTime + "ms");
         //    //})
         //}
+        $timeout(function () {
+            $scope.$broadcast('init-table', JSONCreationService.execute());
+        }, 1000);
 
         $scope.watchConfirm = function () {
             alert(WatchCountService.getWatchers().length);

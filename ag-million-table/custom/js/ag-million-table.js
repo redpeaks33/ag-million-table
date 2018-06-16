@@ -50,6 +50,7 @@ mdt.directive("agMillionTable", ['JSONCreationService', 'vsscrollbarEvent', func
         scope: false,
         templateUrl: '/custom/html/agMillionTable.html',
         compile: function (element, attr) {
+            let sortInfoData = [];
             return function (scope, element, attr, ctrl) {
                 scope.visibleItems = [];
                 scope.filterText = '';
@@ -89,14 +90,20 @@ mdt.directive("agMillionTable", ['JSONCreationService', 'vsscrollbarEvent', func
                     }
                 });
 
+                scope.$on('init-table', function (e, items) {
+                    scope.allItems = items;
+                    scope.$apply('allItems');
+                    scope.$broadcast('init-table-column-filter');
+                    vsscrollbarEvent.init(scope);
+                });
+
                 scope.$on('sort', function (e, mode) {
-                    vsscrollbarEvent.sort(scope, mode);
+                    sortInfoData.push(mode);
+                    vsscrollbarEvent.sort(scope, sortInfoData);
                 });
                 scope.$on('multifilter', function (filterObject) {
                     vsscrollbarEvent.multifilter(scope, filterObject);
                 });
-
-                scope.allItems = JSONCreationService.execute();
             }
         }
     }
@@ -128,12 +135,12 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
             //link
             return function (scope, element, attr, tableFilterCtrl) {
                 //in case of using title only without filter
-                if (!scope.enable) return;
 
                 initialize();
 
                 //#region initialize
                 function initialize() {
+                    if (!scope.enable || !scope.$parent.allItems) return;
                     //initialize collection
                     //create on/off check items
                     scope.items = createItems();
@@ -142,6 +149,9 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
                     //updateParentFilterContainer();
                 }
                 //#endregion
+                scope.$on('init-table-column-filter', function () {
+                    initialize();
+                });
 
                 //#region crate check on/off items for filter
                 function createItems() {
@@ -224,13 +234,15 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
                 //#region button event
                 //Sort
                 let sortType = [{ id: 0, type: 'normal' }, { id: 1, type: 'asc' }, { id: 2, type: 'desc' }];
-                let sortInfos = [];
+                //let sortInfoObject = [];
 
                 scope.sortModel = sortType[0];
 
                 scope.sort = function () {
                     scope.sortModel = sortType[(scope.sortModel.id + 1 % sortType.length)];
-                    scope.sortModel.predicate = attr.predicate; 
+                    scope.sortModel.predicate = attr.predicate;
+                    //sortInfoObject.push(scope.sortModel);
+
                     scope.$emit('sort', scope.sortModel);
                     //vsscrollbarEvent.sort(scope, sortType);
                     //let sortInfo = _.findWhere(mdtConfig.sort.order, { predicate: scope.predicate });
