@@ -4,6 +4,9 @@
             <div id="filter">
                 <input type="text" placeholder="Filter value from all properties..." ng-model="filterText" ng-model-options="{ debounce: 1000 }">
             </div>
+            <div>
+                <button ng-click="initialize()">initialize</button>
+            </div>
         </div>
         <div mild-table-th id="col" title="id" colwidth="100" enable="false"></div>
         <div mild-table-th id="col" predicate="firstName" title="이름" colwidth="150" enable="true" />
@@ -33,7 +36,6 @@
     </div>
 
     <div ng-show="false">
-
         <div>
             <div ng-include="'response.html'"></div>
             <hr />

@@ -92,11 +92,17 @@ mdt.directive("agMillionTable", ['$filter', 'JSONCreationService', 'vsscrollbarE
                         }
                     });
 
+                    scope.initialize = function () {
+                        scope.$broadcast('init-table-column-filter');
+                        vsscrollbarEvent.init(scope);
+                    }
+
                     scope.$on('init-table', function (e, items) {
                         scope.allItems = items;
                         scope.$apply('allItems');
-                        scope.$broadcast('init-table-column-filter');
-                        vsscrollbarEvent.init(scope);
+                        //scope.$broadcast('init-table-column-filter');
+                        //vsscrollbarEvent.init(scope);
+                        scope.initialize();
                     });
 
                     scope.$on('sort', function (e, mode) {
@@ -341,4 +347,4 @@ mdt.directive('mildTableTh', ['mdtConfig', '$rootScope', 'vsscrollbarEvent', fun
             }
         }
     };
-}]);
+}])
