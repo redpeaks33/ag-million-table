@@ -1,0 +1,46 @@
+﻿.agm-table-container {
+    width: 55vw;
+    height: 80vh;
+
+    & > .header {
+        border: 1px solid red;
+
+        & .row {
+            display: flex;
+
+            & > input {
+                width: 150px;
+            }
+
+            & > div:nth-child(n) {
+                text-align: center;
+                width: 100px;
+            }
+        }
+    }
+
+    & > .body {
+        border: 1px solid red;
+
+        & .row {
+            display: flex;
+
+            & > div:nth-child(n) {
+                text-align: center;
+                width: 100px;
+            }
+        }
+
+        & .row:hover {
+            background-color: aliceblue;
+        }
+    }
+
+    & > .footer {
+        border: 1px solid red;
+
+        & .row {
+            display: flex;
+        }
+    }
+}

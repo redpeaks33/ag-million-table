@@ -15,7 +15,7 @@
         }
 
         function createRandomItem(index) {
-            var firstName = nameList[Math.floor(Math.random() * 5)].name,
+            var firstName = nameList[Math.floor(Math.random() * 5)],
                 lastName = familyName[Math.floor(Math.random() * 5)].name,
                 nationality = nationList[Math.floor(Math.random() * 3)].name,
                 education = educationList[Math.floor(Math.random() * 4)].name,

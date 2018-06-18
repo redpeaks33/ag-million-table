@@ -2,5 +2,13 @@
   {
     "outputFile": "custom/css/agMillionTable.css",
     "inputFile": "custom/css/agMillionTable.less"
+  },
+  {
+    "outputFile": "debug/css/ag-million-table-bootstrap.css",
+    "inputFile": "debug/css/ag-million-table-bootstrap.less"
+  },
+  {
+    "outputFile": "debug/css/ag-million-table.css",
+    "inputFile": "debug/css/ag-million-table.less"
   }
 ]

@@ -1,5 +1,4 @@
-﻿<div ng-if="!enable">{{title}}</div>
-<div class="dropdown" ng-if="enable">
+﻿<div class="dropdown">
     <span ng-model="sortModel" ng-click="sort();">
         {{title}}
         <span ng-switch="sortModel.id">
@@ -8,7 +7,7 @@
             <span ng-switch-default></span>
         </span>
     </span>
-    <span data-toggle="dropdown" ng-click="synchronizeCheckItems();">
+    <span data-toggle="dropdown" ng-click="synchronizeCheckItems();" ng-if="enablefilter">
         <span class="glyphicon glyphicon-filter"></span>
     </span>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" ng-click="$event.stopPropagation()">

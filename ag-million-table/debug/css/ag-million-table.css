@@ -1,0 +1,36 @@
+﻿.agm-table-container {
+  width: 55vw;
+  height: 80vh;
+}
+.agm-table-container > .header {
+  border: 1px solid red;
+}
+.agm-table-container > .header .row {
+  display: flex;
+}
+.agm-table-container > .header .row > input {
+  width: 150px;
+}
+.agm-table-container > .header .row > div:nth-child(n) {
+  text-align: center;
+  width: 100px;
+}
+.agm-table-container > .body {
+  border: 1px solid red;
+}
+.agm-table-container > .body .row {
+  display: flex;
+}
+.agm-table-container > .body .row > div:nth-child(n) {
+  text-align: center;
+  width: 100px;
+}
+.agm-table-container > .body .row:hover {
+  background-color: aliceblue;
+}
+.agm-table-container > .footer {
+  border: 1px solid red;
+}
+.agm-table-container > .footer .row {
+  display: flex;
+}

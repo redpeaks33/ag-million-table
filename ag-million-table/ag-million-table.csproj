@@ -70,43 +70,40 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="custom\css\agMillionTable.css">
-      <DependentUpon>agMillionTable.less</DependentUpon>
+    <None Include="debug\css\ag-million-table-bootstrap.less" />
+    <Content Include="debug\css\ag-million-table-bootstrap.css">
+      <DependentUpon>ag-million-table-bootstrap.less</DependentUpon>
     </Content>
-    <Content Include="custom\css\agMillionTable.min.css">
+    <Content Include="debug\css\ag-million-table-bootstrap.min.css">
+      <DependentUpon>ag-million-table-bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="debug\css\ag-million-table.css">
+      <DependentUpon>ag-million-table.less</DependentUpon>
+    </Content>
+    <Content Include="debug\css\ag-million-table.min.css">
+      <DependentUpon>ag-million-table.css</DependentUpon>
+    </Content>
+    <Content Include="debug\css\agMillionTable.css">
+      <DependentUpon>ag-million-table.less</DependentUpon>
+    </Content>
+    <Content Include="debug\css\agMillionTable.min.css">
       <DependentUpon>agMillionTable.css</DependentUpon>
     </Content>
-    <Content Include="custom\html\agMillionTable.html" />
-    <Content Include="custom\html\TableColumnFilter.html" />
-    <Content Include="custom\js\ag-million-table.js" />
+    <Content Include="debug\html\ag-million-table.html" />
+    <Content Include="debug\html\ag-column-filter.html" />
+    <Content Include="debug\js\ag-million-table.js" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="index.html" />
-    <Content Include="lib\vsscrollbar-master\css\vsscrollbar.css" />
-    <Content Include="lib\vsscrollbar-master\dist\debug\vsscrollbar-0.1.6.css" />
-    <Content Include="lib\vsscrollbar-master\dist\debug\vsscrollbar-0.1.6.js" />
-    <Content Include="lib\vsscrollbar-master\dist\min\vsscrollbar-0.1.6.min.css" />
-    <Content Include="lib\vsscrollbar-master\dist\min\vsscrollbar-0.1.6.min.js" />
-    <Content Include="lib\vsscrollbar-master\examples\sampleapp.css" />
-    <Content Include="lib\vsscrollbar-master\examples\sampleapp.html" />
-    <Content Include="lib\vsscrollbar-master\examples\sampleapp.js" />
-    <Content Include="lib\vsscrollbar-master\Gruntfile.js" />
-    <Content Include="lib\vsscrollbar-master\js\vsscrollbar.js" />
-    <Content Include="lib\vsscrollbar-master\karma.conf.js" />
-    <Content Include="lib\vsscrollbar-master\templates\vsscrollbar.html" />
-    <Content Include="lib\vsscrollbar-master\test\vsscrollbar.spec.js" />
+    <Content Include="debug\css\ag-scrollbar.css" />
+    <Content Include="debug\js\ag-scrollbar.js" />
     <Content Include="scripts\angular.min.js.map" />
     <Content Include="scripts\jquery-1.9.1.min.map" />
     <Content Include="scripts\smarttable\smart-table.min.js.map" />
     <Content Include="scripts\underscore.min.map" />
-    <Content Include="lib\vsscrollbar-master\.gitignore" />
-    <Content Include="lib\vsscrollbar-master\bower.json" />
-    <Content Include="lib\vsscrollbar-master\LICENSE" />
-    <Content Include="lib\vsscrollbar-master\package.json" />
-    <Content Include="lib\vsscrollbar-master\README.md" />
-    <Content Include="custom\css\agMillionTable.less" />
+    <Content Include="debug\css\ag-million-table.less" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

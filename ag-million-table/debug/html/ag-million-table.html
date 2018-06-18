@@ -1,38 +1,49 @@
 ﻿<div>
     <div class="agm-table-container">
-        <div>
-            <div id="filter">
-                <input type="text" placeholder="Filter value from all properties..." ng-model="filterText" ng-model-options="{ debounce: 1000 }">
+        <div class="header">
+            <div class="row">
+                <div>
+                    <input type="text" placeholder="spell" ng-model="filterText" ng-model-options="{ debounce: 1000 }">
+                    <button ng-click="initialize()"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+                <div>
+                    <button ng-click="initialize()"><span class="glyphicon glyphicon-refresh"</span> </button>
+                </div>
+                <div>
+                    <button ng-click="exceldownload()"><span class="glyphicon glyphicon-arrow-down"></span><span class="glyphicon glyphicon-file"></span></button>
+                </div>
             </div>
-            <div>
-                <button ng-click="initialize()">initialize</button>
+            <div class="row">
+                <div mild-table-th predicate="id" title="id" enablefilter="false"></div>
+                <div mild-table-th predicate="firstName.name" title="이름" enablefilter="true" />
+                <div mild-table-th predicate="lastName" title="성" enablefilter="true" />
+                <div mild-table-th predicate="nationality" title="국적" enablefilter="true" />
+                <div mild-table-th predicate="education" title="교육" enablefilter="true" />
             </div>
         </div>
-        <div mild-table-th id="col" title="id" colwidth="100" enable="false"></div>
-        <div mild-table-th id="col" predicate="firstName" title="이름" colwidth="150" enable="true" />
-        <div mild-table-th id="col" predicate="lastName" title="성" colwidth="150" enable="true" />
-        <div mild-table-th id="col" predicate="nationality" title="국적" colwidth="150" enable="true" />
-        <div mild-table-th id="col" predicate="education" title="교육" colwidth="150" enable="true" />
-
-        <vsscrollbar items="allItems" items-in-page="30" height="800" ng-model="responseData">
-            <div id="item" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
-                <div id="itemtext">
-                    <div id="col">{{item.id}}</div>
-                    <div id="col">{{item.firstName}}</div>
-                    <div id="col">{{item.lastName}}</div>
-                    <div id="col">{{item.nationality}}</div>
-                    <div id="col">{{item.education}}</div>
-                    <div id="col">
+        <div class="body">
+            <vsscrollbar items="allItems" items-in-page="30" height="800" ng-model="responseData">
+                <div class="row" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
+                    <div>{{item.id}}</div>
+                    <div>{{item.firstName.name}}</div>
+                    <div>{{item.lastName}}</div>
+                    <div>{{item.nationality}}</div>
+                    <div>{{item.education}}</div>
+                    <div>
                         <select name="mySelect" id="mySelect"
                                 ng-options="item in item.summary track by $index"></select>
                     </div>
-                    <div id="col">{{item.summary.e}}</div>
-                    <div id="col">{{item.summary.n}}</div>
-                    <div id="col">{{item.summary.f}}</div>
+                    <div>{{item.summary.e}}</div>
+                    <div>{{item.summary.n}}</div>
+                    <div>{{item.summary.f}}</div>
                 </div>
+            </vsscrollbar>
+        </div>
+        <div class="footer">
+            <div>
+                {{topIndex}} ~ {{topIndex + itemNumPage}}/ {{filteredItemCount}}/ {{allItems.length}}
             </div>
-        </vsscrollbar>
-        <div>{{topIndex}} ~ {{topIndex + itemNumPage}}/ {{filteredItemCount}}/ {{allItems.length}}</div>
+        </div>
     </div>
 
     <div ng-show="false">
@@ -76,7 +87,7 @@
             </table>
         </script>
     </div>
-    <style>
+    <style ng-if="false">
 
         #pagemargin {
             margin: 0px 15px 0px 15px;
