@@ -14,3 +14,4 @@ C:\Users\RedpeaksDev\Documents\GitHub\ag-million-table\ag-million-table\bin\Micr
 C:\Users\RedpeaksDev\Documents\GitHub\ag-million-table\ag-million-table\obj\Debug\ag-million-table.csproj.CoreCompileInputs.cache
 C:\Users\RedpeaksDev\Documents\GitHub\ag-million-table\ag-million-table\obj\Debug\ag-million-table.dll
 C:\Users\RedpeaksDev\Documents\GitHub\ag-million-table\ag-million-table\obj\Debug\ag-million-table.pdb
+C:\Users\RedpeaksDev\Documents\GitHub\ag-million-table\ag-million-table\obj\Debug\ag-million-table.csprojResolveAssemblyReference.cache

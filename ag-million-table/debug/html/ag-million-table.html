@@ -23,8 +23,8 @@
         </div>
         <div class="body">
             <vsscrollbar items="allItems" items-in-page="30" height="800" ng-model="responseData">
-                <div class="row" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);">
-                    <div>{{item.id}}</div>
+                <div class="row" ng-repeat="item in visibleItems track by $index" ng-click="itemClicked($index, item);" ng-class="{selected:item.selected}">
+                    <div>{{item.id}}{{item.selected}}</div>
                     <div>{{item.firstName.name}}</div>
                     <div>{{item.lastName}}</div>
                     <div>{{item.nationality}}</div>

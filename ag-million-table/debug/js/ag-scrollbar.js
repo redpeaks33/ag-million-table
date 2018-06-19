@@ -56,6 +56,10 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
         factory.init = function ($scope) {
             broadcast($scope, 'init');
         };
+
+        factory.clearSelection = function ($scope) {
+            broadcast($scope, 'clearSelection');
+        };
         //#endregion
 
         function broadcast($scope, type, data) {
@@ -249,6 +253,9 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
                         else if (data.type === 'init' && scope.items.length > 0) {
                             initItems(0);
                         }
+                        else if (data.type === 'clearSelection' && scope.items.length > 0) {
+                            clearSelection();
+                        }
                     }
 
                     scope.$on('$destroy', function () {
@@ -277,9 +284,16 @@ angular.module('vsscrollbar', ["template-vsscrollbar-0.1.6.html"])
                         setIndex(idx, false);
                     }
 
+                    function clearSelection() {
+                        angular.forEach(scope.items, function (value, key) {
+                            if (value.selected) {
+                                value.selected = !value.selected;
+                            }
+                        })
+                    }
+
                     function filterMultiItems(filterObject, idx) {
-                        //scope.filteredItems = (filter === '') ? scope.items : $filter('filter')(scope.items, filterConditionCreationService.createCondition(item, filterObject));
-                        scope.filteredItems = (filter === '') ? scope.items : filterConditionCreationService.createCondition(scope.items, filterObject);
+                        scope.filteredItems = (filterObject === '') ? scope.items : filterConditionCreationService.createCondition(scope.items, filterObject);
                         scope.scrollbarVisible = scope.filteredItems.length > itemsInPage;
                         initScrollValues();
                         setIndex(idx, false);

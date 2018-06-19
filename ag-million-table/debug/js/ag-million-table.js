@@ -81,6 +81,9 @@
                         scope.itemClicked = function (index, item) {
                             var text = 'Clicked item: \"' + item.name + '\". Its index in the page is: \"' + index + '\" and the total index is: \"' + (scope.topIndex + index) + '\".';
                             scope.clickedText = text;
+
+                            vsscrollbarEvent.clearSelection(scope, item);
+                            item.selected = true;
                         };
 
                         // Filtering
@@ -135,6 +138,11 @@
 
                             vsscrollbarEvent.multifilter(scope, filterInfoData);
                         });
+
+                        scope.$on('clear-selection', function (e, value) {
+                            vsscrollbarEvent.clearSelection(scope, value);
+                            value.selected = true;
+                        })
                     }
                 }
             }

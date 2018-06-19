@@ -15,8 +15,9 @@
   text-align: center;
   width: 100px;
 }
-.agm-table-container > .body {
-  border: 1px solid red;
+.agm-table-container > .body .selected {
+  background-color: cornflowerblue;
+  color: white;
 }
 .agm-table-container > .body .row {
   display: flex;
